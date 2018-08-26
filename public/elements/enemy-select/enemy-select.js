@@ -16,7 +16,11 @@
 				enemies: {
                     type: Array,
                     value: []
-                },
+				},
+				enemyData: {
+					type: Array,
+					notify: true
+				}
 			};
 		}
 	    ready()
@@ -44,8 +48,7 @@
 			});
 			this.$.enemyValue.innerHTML = assignedEnemy.name;
 			this.$.hpValue.innerHTML = assignedEnemy.hp;
-
-				
+			this.enemyData = {"name": assignedEnemy.name, "health": assignedEnemy.hp };		
 		}
 
 	   

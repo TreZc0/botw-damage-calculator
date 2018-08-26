@@ -5,19 +5,20 @@
     <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
     <link rel="stylesheet" type="text/css" href="dialog-polyfill.css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript"src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script type="text/javascript"src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="dialog-polyfill.js"></script>
     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" type="text/css"/>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
     <link rel="import" href="elements/weapon-select/weapon-select.html">
     <link rel="import" href="elements/enemy-select/enemy-select.html">
+    <link rel="import" href="elements/modifier-select/modifier-select.html">
     <script src="bower_components/web-animations-js/web-animations.min.js"></script>
     <custom-style>
         <style include="iron-flex iron-flex-alignment">
         
             body {
-				background-color: #f5f5f5;
+				background-color: darkgrey;
                 font-family: 'Open Sans';
 				margin: 0;
 				@apply --layout-horizontal;
@@ -39,14 +40,14 @@
                 display: flex;
 				flex-shrink: 0;
 				flex-grow: 1;
-                margin-bottom: 60px;
+                margin-bottom: 10px;
 				@apply --layout-horizontal;
 				@apply --layout-center-justified;
 			}
             .bordered {
 				box-sizing: border-box;
-				background: #32475b;
-				border: 1px solid white;
+				background-color: #274a70;
+				border: 1px solid black;
 			}
 			.column {
 				width: 560px;
@@ -66,7 +67,7 @@
             }
 
             #header {
-                background-color: #32475b;
+                background-image: url(pattern.png);
                 width: 100%;
                 display: flex;
                 align-items: center;
@@ -78,34 +79,25 @@
 
             }
             #footer {
-                background-color: #32475b;
+                background-image: url(pattern.png);
+                margin: 0;
+                justify-content: center;
                 width: 100%;
-                display: flex;
-                align-items: center;
-
-                padding-left: 50px;
+                display: block;
+                text-align: center;
                 z-index: 10;
-                height: 10.5em;
-                justify-content:flex-start;
+                height: 10.0em;
                 color: white;
                 @apply --layout-vertical;
 
             }
-            #leftbox {
-                float: left;
-                text-align: left;
-                justify-content:flex-start;
-                width: 50%;
-            }
-            #rightbox {
-                float: right;
-                width: 50%
-            }
+
             #footer a {
                 margin-bottom: 5px;
             }
             #dev {
-                font-size: 16px;
+                font-size: 24px;
+                font-weight: 800;
             }
             #logo {
                 width: 100px;
@@ -143,6 +135,35 @@
             enemy-select {
                 @apply --layout-flex-none;
             }   
+            modifier-select {
+                @apply --layout-flex-none;
+            }
+            #calculations {
+                margin-left: auto;
+                margin-right: auto;
+                width: 70%;
+                height: 270px;
+                margin-top: 0px;
+                margin-bottom: 20px;
+                justify-content: space-around;
+                color: white;
+                font-size: 24px;
+                line-height: 0.5em;
+            }
+            #calc {
+                margin-top: 5px;
+				margin-bottom: 5px;
+				width: 250px;
+				height: 60px;
+				background-color:lightgrey;
+				justify-content: space-around;
+				color: black;
+                text-transform: uppercase;
+                font-size: 15px;
+            }
+            #killCheck, #killAmount, #dmg, #hits {
+                font-weight: 800;
+            }
         </style>
 
     </custom-style>
@@ -155,31 +176,39 @@
 	    <div id="container">
             <div id="leftColumn" class="column">
                 <h2>Weapon Select</h2>
-                <weapon-select class="bordered"></weapon-select>
+                <weapon-select id="weapons" class="bordered"></weapon-select>
             </div>
 
             <div id="centerColumn" class="column">
                 <h2>Enemy Select</h2>
-                <enemy-select class="bordered"></enemy-select>
+                <enemy-select id="enemies" class="bordered"></enemy-select>
+
             </div>
             <div id="rightColumn" class="column">
                 <h2>Modifiers</h2>
-
+                <modifier-select id="modifiers" class="bordered"></modifier-select>
             </div>
-            <!--<dialog id="dialogresult"> 
-                <h2>Results:</h2> 
-                <p id="results"></p><br>
-                <button id="result-cancel">Close</button>
 
-            </dialog>-->
+        </div>
+        <div id="calculations" class="bordered">
+        <button onclick="calc()" id="calc">Calculate!</button>
+                <div>
+                    <p id="killed">Can enemy be killed:&nbsp; <span id="killCheck"></span></p>
+                    <p id="killedIn">Gets killed in&nbsp; <span id="killAmount">-</span>&nbsp; hits</p>
+                    <p id="damDealt">The weapon dealt&nbsp; <spans id="dmg">-</span>&nbsp;damage</p>
+                    <p id="remHits">The weapon has&nbsp; <span id="hits">-</span>&nbsp; hits left</p>
+                </div>
         </div>
         <div id="footer">
-                <p id="dev">Developed by TreZc0_</p>  
-                <p><a href="http://github.com/treZc0/botw-calculator" target="_blank">Github</a></p>
+            <div id="leftbox">
+                <div id="dev">Developed by TreZc0_</div>  
+            </div>
+            <div id="rightbox">
+                <p><a href="http://github.com/treZc0/botw-damage-calculator" target="_blank">Github</a></p>
                 <p><a href="http://zelda.speedruns.com" target="_blank">ZSR</a></p>
-
- 
+            </div> 
         </div>
     </div>
+    <script type="text/javascript" src="index.js"></script>
   </body>
 </html>

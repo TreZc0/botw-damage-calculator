@@ -14,7 +14,7 @@
 
 
 
-<dom-module id="enemy-select">
+<dom-module id="modifier-select">
 	<template>
 		<style>
 			:host {
@@ -27,6 +27,7 @@
 				color: white;
 				height: 550px;
 			}
+
 			paper-button {
 				margin: auto;
 				margin-bottom: 5px;
@@ -54,10 +55,10 @@
 			iron-input {
 				color: white;
 			}
-			#enemySelect {
-				margin-bottom: 50px;
+			#attack, #durability {
+				margin-bottom: 10px;
 			}
-			#enemy, #hp {
+			#atk, #dur {
 				font-size: 24px;
 				font-weight: 500;
 				margin-top: 5px;
@@ -67,29 +68,35 @@
 			#switch {
 				margin-bottom: 10px;
 			}
-
-			#enemy, #hpValue {
+			#atkValue, #durValue {
 				font-weight: 800;
 			}
 		</style>
 
-		<template is="dom-if" if="{{enemies}}">
-			<paper-dropdown-menu id="enemySelect" attr-or-property-name="name" label="Enemy Selection">
-				<paper-listbox id="enemyList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedEnemy}}">
-					<template is="dom-repeat" items="[[enemies]]" mutable-data>
-						<paper-item value="[[item.name]]">[[item.name]]</paper-item>
-					</template>
+		<paper-dropdown-menu id="attack" attr-or-property-name="name" label="Attack Modifier" >
+				<paper-listbox id="atkList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedAtkMod}}">
+						<paper-item value="0">0</paper-item>
+						<paper-item value="1">+1</paper-item>
+						<paper-item value="2">+2</paper-item>
+						<paper-item value="3">+3</paper-item>
 				</paper-listbox>
-			</paper-dropdown-menu>
-		</template>
-		<div id="enemy">Selected Enemy:&nbsp;<div id="enemyValue"></div></div>
-		<div id="hp">Health:&nbsp;<div id="hpValue"></div></div>
+		</paper-dropdown-menu>
+		<paper-dropdown-menu id="durability" attr-or-property-name="name" label="Durability Modifier" >
+				<paper-listbox id="durList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedDurMod}}">
+						<paper-item value="0">0</paper-item>
+						<paper-item value="1">+1</paper-item>
+						<paper-item value="2">+2</paper-item>
+						<paper-item value="3">+3</paper-item>
+				</paper-listbox>
+		</paper-dropdown-menu>
+		<div id="atk">Attack Modifier:&nbsp;<div id="atkValue"></div></div>
+		<div id="dur">Durability Modifier:&nbsp;<div id="durValue"></div></div>
 
-			<paper-button id="switch" class="flex" on-tap="_assign" raised>
-				<div align=center>Load Enemy Details</div>
+		<paper-button id="switch" class="flex" on-tap="_assign" raised>
+				<div align=center>Set Modifiers</div>
 			</paper-button>
 
 </template>
 
-	<script src="enemy-select.js"></script>
+	<script src="modifier-select.js"></script>
 </dom-module>

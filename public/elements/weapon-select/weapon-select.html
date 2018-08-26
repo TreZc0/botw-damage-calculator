@@ -27,11 +27,7 @@
 				color: white;
 				height: 550px;
 			}
-			#volume-controls {
-				display: block;
-				@apply --layout-horizontal;
-				justify-content: space-around;
-			};
+
 			paper-button {
 				margin: auto;
 				margin-bottom: 5px;
@@ -59,14 +55,6 @@
 			iron-input {
 				color: white;
 			}
-			paper-slider.yellow {
-				--paper-slider-knob-color: var(--paper-yellow-500);
-				--paper-slider-active-color: var(--paper-yellow-500);
-			}
-			paper-slider.red {
-				--paper-slider-knob-color: var(--paper-red-500);
-				--paper-slider-active-color: var(--paper-red-500);
-			}
 			#weapon, #ap, #dur, #maxdmg {
 				font-size: 24px;
 				font-weight: 500;
@@ -80,14 +68,26 @@
 			#switch {
 				margin-bottom: 10px;
 			}
-			#nodeCGVolume {
-				margin-bottom: 10px;
-			}
 			#weaponValue, #apValue, #durValue, #maxdmgValue {
 				font-weight: 800;
 			}
+			#filter {
+				width: 450px;
+				margin-bottom: 20px;
+			}
+			#message {
+				display: none;
+			}
 		</style>
-
+		<paper-dropdown-menu id="filter" attr-or-property-name="name" label="Weapon Filter" >
+				<paper-listbox id="filterList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedFilter}}">
+						<paper-item value="all">All weapons</paper-item>
+						<paper-item value="onehanders">Onehanded</paper-item>
+						<paper-item value="twohanders">Twohanded</paper-item>
+						<paper-item value="spears">Spears</paper-item>
+						<paper-item value="bows">Bows</paper-item>
+				</paper-listbox>
+		</paper-dropdown-menu>
 		<template is="dom-if" if="{{weapons}}">
 			<paper-dropdown-menu id="weaponSelect" attr-or-property-name="name" label="Weapon Selection">
 				<paper-listbox id="weaponList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedWeapon}}">
@@ -106,17 +106,7 @@
 			<paper-button id="switch" class="flex" on-tap="_assign" raised>
 				<div align=center>Load Weapon Details</div>
 			</paper-button>
-			<!--
-			<div style="color: white;" align=center>Volume Discord<br>
-				<paper-slider id="discordVolume" class="yellow" value="50" max="100" on-change="_setVolumeDiscord"></paper-slider>
-			</div>
-			<div style="color: white;" align=center>Volume NodeCG<br>
-				<paper-slider id="nodeCGVolume" class="red" value="50" max="100" on-change="_setVolumeNodeCG"></paper-slider>
-			</div>
-			<paper-button id="stop" class="flex" on-tap="_stop" raised>
-				<div align=center>Stop Remote Stream</div>
-			</paper-button>
-		-->
+
 </template>
 
 	<script src="weapon-select.js"></script>
