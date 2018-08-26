@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+    <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+    <link rel="stylesheet" type="text/css" href="dialog-polyfill.css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript"src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript"src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="dialog-polyfill.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" type="text/css"/>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
+    <link rel="import" href="elements/weapon-select/weapon-select.html">
+    <link rel="import" href="elements/enemy-select/enemy-select.html">
+    <script src="bower_components/web-animations-js/web-animations.min.js"></script>
+    <custom-style>
+        <style include="iron-flex iron-flex-alignment">
+        
+            body {
+				background-color: #f5f5f5;
+                font-family: 'Open Sans';
+				margin: 0;
+				@apply --layout-horizontal;
+				@apply --layout-center-justified;
+			}
+            button {
+                height: 60px;
+            }
+			#wrapper {
+				width: 99vw;
+				@apply --layout-vertical;
+				@apply --layout-flex-none;
+
+                text-align: center;
+			}
+			#container {
+				padding: 15px 20px;
+				box-sizing: border-box;
+                display: flex;
+				flex-shrink: 0;
+				flex-grow: 1;
+                margin-bottom: 60px;
+				@apply --layout-horizontal;
+				@apply --layout-center-justified;
+			}
+            .bordered {
+				box-sizing: border-box;
+				background: #32475b;
+				border: 1px solid white;
+			}
+			.column {
+				width: 560px;
+				margin: 0 20px;
+				@apply --layout-vertical;
+				@apply --layout-flex-none;
+                justify-content: space-around;
+			}
+            #midblocks {
+                display: flex;
+                @apply --layout-horizontal;
+                justify-content: space-around;
+                margin-bottom: 10px;
+            }
+            #midblocks button {
+                width: 45%;
+            }
+
+            #header {
+                background-color: #32475b;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+                padding-left: 50px;
+                z-index: 10;
+                height: 7.5em;
+                justify-content:flex-start;
+
+            }
+            #footer {
+                background-color: #32475b;
+                width: 100%;
+                display: flex;
+                align-items: center;
+
+                padding-left: 50px;
+                z-index: 10;
+                height: 10.5em;
+                justify-content:flex-start;
+                color: white;
+                @apply --layout-vertical;
+
+            }
+            #leftbox {
+                float: left;
+                text-align: left;
+                justify-content:flex-start;
+                width: 50%;
+            }
+            #rightbox {
+                float: right;
+                width: 50%
+            }
+            #footer a {
+                margin-bottom: 5px;
+            }
+            #dev {
+                font-size: 16px;
+            }
+            #logo {
+                width: 100px;
+                vertical-align:middle
+            }
+            #botw {
+                color: white;
+                font-weight: 800;
+                font-size: 22px;
+                vertical-align: middle;
+                margin-left: 10px;
+                margin-bottom: 5px;
+                text-align: left;
+            }
+            #stm {
+                color: white;
+                font-weight: 800;
+                font-size: 18px;
+                vertical-align: middle;
+                margin-left: 2px;
+            }
+            a {
+                color: white;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            .ui-datepicker .ui-widget-content {
+                background: #999 none;
+            }  
+            weapon-select {
+				@apply --layout-flex-none;
+			}   
+            enemy-select {
+                @apply --layout-flex-none;
+            }   
+        </style>
+
+    </custom-style>
+  </head>
+  <body>
+    <div id="wrapper">
+        <div id="header">
+           <img id="logo" src="botwlogo.png"><div id="botw"><a href="http://zelda.speedruns.com/botw">BoTW Damage Calculator</a></div>
+        </div>
+	    <div id="container">
+            <div id="leftColumn" class="column">
+                <h2>Weapon Select</h2>
+                <weapon-select class="bordered"></weapon-select>
+            </div>
+
+            <div id="centerColumn" class="column">
+                <h2>Enemy Select</h2>
+                <enemy-select class="bordered"></enemy-select>
+            </div>
+            <div id="rightColumn" class="column">
+                <h2>Modifiers</h2>
+
+            </div>
+            <!--<dialog id="dialogresult"> 
+                <h2>Results:</h2> 
+                <p id="results"></p><br>
+                <button id="result-cancel">Close</button>
+
+            </dialog>-->
+        </div>
+        <div id="footer">
+                <p id="dev">Developed by TreZc0_</p>  
+                <p><a href="http://github.com/treZc0/botw-calculator" target="_blank">Github</a></p>
+                <p><a href="http://zelda.speedruns.com" target="_blank">ZSR</a></p>
+
+ 
+        </div>
+    </div>
+  </body>
+</html>

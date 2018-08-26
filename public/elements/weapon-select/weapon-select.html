@@ -1,0 +1,123 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/polymer/lib/mixins/mutable-data.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
+<link rel="import" href="../../bower_components/paper-styles/shadow.html">
+<script src="../../bower_components/web-animations-js/web-animations-next-lite.min.js"></script>
+
+
+
+<dom-module id="weapon-select">
+	<template>
+		<style>
+			:host {
+				display: block;
+				@apply --layout-vertical;
+				@apply --layout-center-center;
+				justify-content: space-around;
+				text-align: center;
+				background-color: darkgrey;
+				color: white;
+				height: 550px;
+			}
+			#volume-controls {
+				display: block;
+				@apply --layout-horizontal;
+				justify-content: space-around;
+			};
+			paper-button {
+				margin: auto;
+				margin-bottom: 5px;
+				width: 250px;
+				height: 60px;
+				background-color:lightgrey;
+				justify-content: space-around;
+				color: black;
+			}
+			paper-slider {
+				@apply --layout-horizontal;
+				@apply --layout-center-center;
+			}
+			paper-dropdown-menu {
+				width: 450px;
+				--paper-input-container-label: {
+					color: white;
+					text-align: center;
+					font-weight: bold;
+					};
+				--paper-input-container-input: {
+					color: white;
+					};
+			}; 
+			iron-input {
+				color: white;
+			}
+			paper-slider.yellow {
+				--paper-slider-knob-color: var(--paper-yellow-500);
+				--paper-slider-active-color: var(--paper-yellow-500);
+			}
+			paper-slider.red {
+				--paper-slider-knob-color: var(--paper-red-500);
+				--paper-slider-active-color: var(--paper-red-500);
+			}
+			#weapon, #ap, #dur, #maxdmg {
+				font-size: 24px;
+				font-weight: 500;
+				margin-top: 5px;
+				margin-bottom: 10px;
+				text-align: center;
+			}
+			#weaponSelect {
+				margin-bottom: 20px;
+			}
+			#switch {
+				margin-bottom: 10px;
+			}
+			#nodeCGVolume {
+				margin-bottom: 10px;
+			}
+			#weaponValue, #apValue, #durValue, #maxdmgValue {
+				font-weight: 800;
+			}
+		</style>
+
+		<template is="dom-if" if="{{weapons}}">
+			<paper-dropdown-menu id="weaponSelect" attr-or-property-name="name" label="Weapon Selection">
+				<paper-listbox id="weaponList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedWeapon}}">
+					<template is="dom-repeat" items="[[weapons]]" mutable-data>
+						<paper-item value="[[item.name]]">[[item.name]]</paper-item>
+					</template>
+				</paper-listbox>
+			</paper-dropdown-menu>
+		</template>
+		<div id="weapon">Current Weapon:&nbsp;<div id="weaponValue"></div></div>
+		<div id="ap">Attack Power:&nbsp;<div id="apValue"></div></div>
+		<div id="dur">Durability:&nbsp;<div id="durValue"></div></div>
+		<div id="maxdmg">Max Damage:&nbsp;<div id="maxdmgValue"></div></div>
+
+
+			<paper-button id="switch" class="flex" on-tap="_assign" raised>
+				<div align=center>Load Weapon Details</div>
+			</paper-button>
+			<!--
+			<div style="color: white;" align=center>Volume Discord<br>
+				<paper-slider id="discordVolume" class="yellow" value="50" max="100" on-change="_setVolumeDiscord"></paper-slider>
+			</div>
+			<div style="color: white;" align=center>Volume NodeCG<br>
+				<paper-slider id="nodeCGVolume" class="red" value="50" max="100" on-change="_setVolumeNodeCG"></paper-slider>
+			</div>
+			<paper-button id="stop" class="flex" on-tap="_stop" raised>
+				<div align=center>Stop Remote Stream</div>
+			</paper-button>
+		-->
+</template>
+
+	<script src="weapon-select.js"></script>
+</dom-module>

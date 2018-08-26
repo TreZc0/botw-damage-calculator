@@ -1,0 +1,34 @@
+{
+  "name": "botw-calculator",
+  "description": "Damage Calucaltor for Breath of the Wild",
+  "main": "app.js",
+  "bin": "app.js",
+  "version": "0.1.0",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "csurf": "^1.9.0",
+    "easyjson": "^0.1.2",
+    "edit-json-file": "^1.1.0",
+    "express": "^4.16.3",
+    "express-nedb-session": "^0.1.1",
+    "express-session": "^1.15.6",
+    "express-stormpath": "^4.0.0",
+    "forms": "^1.3.0",
+    "fs-extra": "^7.0.0",
+    "jade": "^1.11.0",
+    "mime": "^2.3.1",
+    "mysql": "^2.16.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "path-exists": "^3.0.0",
+    "q": "^1.4.1",
+    "refresh-token": "^1.0.0",
+    "request": "^2.67.0",
+    "request-promise": "^4.2.1",
+    "xtend": "^4.0.1"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
