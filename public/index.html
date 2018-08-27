@@ -223,6 +223,7 @@
             var atkModifier = 1;
             var durModifier = 0;
             var bonusDamage = 0;
+            var atkDamage = weapon.weaponData.atk;
             var plusArrowDamage = 0;
             if (modifier.modifierData) {
                 if (modifier.modifierData.atkMod != 0) {
@@ -271,6 +272,17 @@
                     else atkModifier = atkModifier * 2;      
                 }
             }
+            if (weapon.weaponData.headshot) {
+                if ((enemy.enemyData.name.includes("Bokoblin")) || (enemy.enemyData.name.includes("Moblin")) || (enemy.enemyData.name.includes("Lizalfos"))) {
+                    if ((enemy.enemyData.name.includes("Stal")) || (enemy.enemyData.name.includes("Cursed")))
+                        return;
+                    else if (weapon.weaponData.name.includes("x3")) {
+                        var baseAtk = atkDamage / 3;
+                        atkDamage = baseAtk*5;
+                    }
+                } else atkDamage = atkDamage*2;
+            }
+
             if (weapon.weaponData.arrows != "Normal") {
                 switch(weapon.weaponData.arrows) {
                     case "Bomb":
@@ -279,9 +291,23 @@
                         else plusArrowDamage = 40;
                     break;
                     case "Ancient":
-                    if ((!enemy.enemyData.name.includes("Hinox")) && (!enemy.enemyData.name.includes("Talus")) && (!enemy.enemyData.name.includes("Molduga")) && (!enemy.enemyData.name.includes("Blight")) && (!enemy.enemyData.name.includes("Calamity")) && (!enemy.enemyData.name.includes("Koshia"))) {
+                    if ((!enemy.enemyData.name.includes("Guardian")) && (!enemy.enemyData.name.includes("Hinox")) && (!enemy.enemyData.name.includes("Talus")) && (!enemy.enemyData.name.includes("Molduga")) && (!enemy.enemyData.name.includes("Blight")) && (!enemy.enemyData.name.includes("Calamity")) && (!enemy.enemyData.name.includes("Koshia"))) {
                         plusArrowDamage = 99999;
-   
+                    }
+                    else if ((enemy.enemyData.name.includes("Guardian")) && (!enemy.enemyData.name.includes("Scout"))) {
+                        if (weapon.weaponData.name.includes("x2"))
+                            if (weapon.weaponData.headshot)
+                                atkDamage = 3000;
+                            else atkDamage = 1000;
+                        else if (weapon.weaponData.name.includes("x3"))
+                            if (weapon.weaponData.headshot)
+                                atkDamage = 4500;
+                            else atkDamage = 1500;
+                        else {
+                            if (weapon.weaponData.headshot)
+                                atkDamage = 1500;
+                            else atkDamage = 500;   
+                        }
                     }
                     else if ((weapon.weaponData.name.includes("x2")) ||(weapon.weaponData.name.includes("x3")))
                         plusArrowDamage = 100;
@@ -297,11 +323,11 @@
                 }
             }
             /*console.log("atkMod" + atkModifier);
-            console.log("pure damage: " + Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier));
+            console.log("pure damage: " + Math.floor((atkDamage+bonusDamage)*atkModifier));
             console.log("dur: " + weapon.weaponData.dur+durModifier);
-            console.log("total damage: " + (Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage)*(weapon.weaponData.dur+durModifier));
+            console.log("total damage: " + (Math.floor((atkDamage+bonusDamage)*atkModifier)+plusArrowDamage)*(weapon.weaponData.dur+durModifier));
             console.log("health: " + enemy.enemyData.health);*/
-            if (((Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage)*(weapon.weaponData.dur+durModifier)) > enemy.enemyData.health) {
+            if (((Math.floor((atkDamage+bonusDamage)*atkModifier)+plusArrowDamage)*(weapon.weaponData.dur+durModifier)) > enemy.enemyData.health) {
                 killCheck.innerHTML = "YES!";
                 canbeKilled = true;
             }
@@ -311,15 +337,15 @@
             }
             
             if (canbeKilled) {
-                killAmount.innerHTML = Math.ceil(enemy.enemyData.health / (Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage));
+                killAmount.innerHTML = Math.ceil(enemy.enemyData.health / (Math.floor((atkDamage+bonusDamage)*atkModifier)+plusArrowDamage));
             }
             else killAmount.innerHTML = "-";
             
             if (canbeKilled) {
-                dmgDealt.innerHTML = (Math.ceil(enemy.enemyData.health / (Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier))))*(Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage);
-            } else dmgDealt.innerHTML = (Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage)*(weapon.weaponData.dur+durModifier);
+                dmgDealt.innerHTML = (Math.ceil(enemy.enemyData.health / (Math.floor((atkDamage+bonusDamage)*atkModifier))))*(Math.floor((atkDamage+bonusDamage)*atkModifier)+plusArrowDamage);
+            } else dmgDealt.innerHTML = (Math.floor((atkDamage+bonusDamage)*atkModifier)+plusArrowDamage)*(weapon.weaponData.dur+durModifier);
             if (canbeKilled) {
-                remHits.innerHTML = (weapon.weaponData.dur+durModifier) - (Math.ceil(enemy.enemyData.health / (Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage)));
+                remHits.innerHTML = (weapon.weaponData.dur+durModifier) - (Math.ceil(enemy.enemyData.health / (Math.floor((atkDamage+bonusDamage)*atkModifier)+plusArrowDamage)));
             } else remHits.innerHTML = 0;
         }
     </script>

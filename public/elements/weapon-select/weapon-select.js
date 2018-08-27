@@ -101,15 +101,15 @@
 			});
 			this.$.weaponValue.innerHTML = assignedWeapon.name;
 			var attackPower = assignedWeapon.atkPower;
-
+			var headshot = false;
 			if (this.$.hs.checked)
-				attackPower = attackPower * 2;
-			var stealth = false;
+				headshot = true;
 
+			var stealth = false;
 			if (this.$.sa.checked)
 				stealth = true;
 
-			this.weaponData = {"name": assignedWeapon.name, "atk": attackPower, "dur": assignedWeapon.durability, "arrows": this.selectedArrows, "maxDmg": attackPower * assignedWeapon.durability, "stealth": stealth };
+			this.weaponData = {"name": assignedWeapon.name, "atk": attackPower, "dur": assignedWeapon.durability, "arrows": this.selectedArrows, "maxDmg": attackPower * assignedWeapon.durability, "headshot": headshot, "stealth": stealth };
 			this.$.apValue.innerHTML = attackPower;
 			this.$.durValue.innerHTML = assignedWeapon.durability;
 			if (assignedWeapon.name.includes("Bow")) {
