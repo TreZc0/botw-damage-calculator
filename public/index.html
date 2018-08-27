@@ -251,21 +251,49 @@
                             atkModifier = atkModifier + 0.8;
                         else if (modifier.modifierData.special == "Gem")
                             atkModifier = atkModifier + 0.2;
-                    } else if (modifier.modifierData.special == "Bone")
+                    } else if (modifier.modifierData.special == "Bone") {
+                        if ((weapon.weaponData.name.includes("Dragonbone")) || (weapon.weaponData.name.includes("Spiked")) || (weapon.weaponData.name.includes("Bokoblin")) || (weapon.weaponData.name.includes("Lizalfos")) || (weapon.weaponData.name.includes("Moblin Arm")))
                             atkModifier = atkModifier + 0.8;
+                    }
+                }
+            }
+            if ((weapon.weaponData.name.includes("Ancient")) || (weapon.weaponData.name.includes("Guardian"))) {
+                if ((enemy.enemyData.name.includes("Guardian")) || (enemy.enemyData.name.includes("Blight")) || (enemy.enemyData.name.includes("Calamity Ganon")) || (enemy.enemyData.name.includes("Sentry"))) {
+                    if (["Ancient Bow", "Ancient Bladesaw", "Ancient Short Sword", "Ancient Spear"].includes(weapon.weaponData.name)) {
+                        atkModifier = atkModifier + 0.5;
+                    } else atkModifier = atkModifier + 0.3;
+                }
+            }
+            if (["Boulder Breaker", "Iron Sledgehammer", "Stone Smasher", "Cobble Crusher"].includes(weapon.weaponData.name)) {
+                if ((enemy.enemyData.name.includes("Talus")) && (!enemy.enemyData.name.includes("Luminous"))) {
+                    if (weapon.weaponData.name == "Iron Sledgehammer")
+                        atkModifier = atkModifier * 4;
+                    else atkModifier = atkModifier * 2;      
                 }
             }
             if (weapon.weaponData.arrows != "Normal") {
                 switch(weapon.weaponData.arrows) {
-                    case "Fire":
-                        plusArrowDamage = 10;
+                    case "Bomb":
+                        if ((weapon.weaponData.name.includes("x2")) ||(weapon.weaponData.name.includes("x3")))
+                            plusArrowDamage = 80;
+                        else plusArrowDamage = 40;
                     break;
-                    case "Ice":
-                        plusArrowDamage = 10;
+                    case "Ancient":
+                    if ((!enemy.enemyData.name.includes("Hinox")) && (!enemy.enemyData.name.includes("Talus")) && (!enemy.enemyData.name.includes("Molduga")) && (!enemy.enemyData.name.includes("Blight")) && (!enemy.enemyData.name.includes("Calamity")) && (!enemy.enemyData.name.includes("Koshia"))) {
+                        plusArrowDamage = 99999;
+   
+                    }
+                    else if ((weapon.weaponData.name.includes("x2")) ||(weapon.weaponData.name.includes("x3")))
+                        plusArrowDamage = 100;
+                    else plusArrowDamage = 50;
                     break;
-                    case "Shock": 
-                        plusArrowDamage = 20;
-                    break;
+                }
+            }
+            if (weapon.weaponData.stealth) {
+                if ((enemy.enemyData.name.includes("Bokoblin")) || (enemy.enemyData.name.includes("Moblin")) || (enemy.enemyData.name.includes("Lizalfos"))) {
+                    if ((enemy.enemyData.name.includes("Stal")) || (enemy.enemyData.name.includes("Cursed")))
+                        return;
+                    else atkModifier = atkModifier * 8;
                 }
             }
             /*console.log("atkMod" + atkModifier);

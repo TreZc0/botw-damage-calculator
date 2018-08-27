@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../bower_components/paper-slider/paper-slider.html">
 <link rel="import" href="../../bower_components/paper-styles/shadow.html">
@@ -60,20 +61,35 @@
 				font-size: 24px;
 				font-weight: 500;
 				margin-top: 5px;
-				margin-bottom: 5px;
+				margin-bottom: 3px;
 				text-align: center;
 			}
 			#weaponSelect {
-				margin-bottom: 10px;
+				margin-bottom: 6px;
 			}
 			#weaponValue, #apValue, #durValue, #maxdmgValue {
 				font-weight: 800;
 			}
 			#filter, #arrows {
-				margin-bottom: 10px;
+				margin-bottom: 7px;
 			}
 			#message {
 				display: none;
+			}
+			#checkboxes {
+				@apply --layout-horizontal;
+				margin-bottom: 5px;
+				justify-content: space-between;
+				color: white;
+				--paper-checkbox-label-color: white;
+				--paper-checkbox-unchecked-color: white;
+				--paper-checkbox-checked-color: green;
+				--paper-checkbox-size: 1em;
+				
+				font-weight: 600;
+			}
+			paper-checkbox {
+				margin-right: 10px;
 			}
 		</style>
 		<paper-dropdown-menu id="filter" attr-or-property-name="name" label="Weapon Filter" >
@@ -97,11 +113,14 @@
 		<paper-dropdown-menu id="arrows" attr-or-property-name="name" label="Arrows Used" >
 				<paper-listbox id="arrowList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedArrows}}">
 						<paper-item value="Normal">Normal</paper-item>
-						<paper-item value="Fire">Fire</paper-item>
-						<paper-item value="Ice">Ice</paper-item>
-						<paper-item value="Shock">Shock</paper-item>
+						<paper-item value="Bomb">Bomb</paper-item>
+						<paper-item value="Ancient">Ancient</paper-item>
 				</paper-listbox>
 		</paper-dropdown-menu>
+		<div id="checkboxes">
+			<paper-checkbox id="hs">Headshots</paper-checkbox>
+			<paper-checkbox id="sa">Sneak-Attacks</paper-checkbox>
+		</div>
 		<div id="weapon">Current Weapon:&nbsp;<div id="weaponValue"></div></div>
 		<div id="ap">Attack Power:&nbsp;<div id="apValue"></div></div>
 		<div id="dur">Durability:&nbsp;<div id="durValue"></div></div>

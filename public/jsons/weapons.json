@@ -135,17 +135,17 @@
         { "name": "Savage Lynel Spear", "atkPower": 30, "durability": 45 }
     ],
     "bows": [
-        { "name": "Bow of Light", "atkPower": 100, "durability": 99999 },
+        { "name": "Bow of Light", "atkPower": 100, "durability": 9999 },
         { "name": "Wooden Bow", "atkPower": 4, "durability": 20 },
         { "name": "Traveler's Bow", "atkPower": 5, "durability": 22 },
         { "name": "Soldier's Bow", "atkPower": 14, "durability": 36 },
         { "name": "Knight's Bow", "atkPower": 26, "durability": 48 },
         { "name": "Royal Bow", "atkPower": 38, "durability": 60 },
-        { "name": "Forest Dweller's Bow", "atkPower": 15, "durability": 35 },
+        { "name": "Forest Dweller's Bow (x3)", "atkPower": 45, "durability": 35 },
         { "name": "Silver Bow", "atkPower": 15, "durability": 40 },
         { "name": "Swallow Bow", "atkPower": 9, "durability": 30 },
         { "name": "Falcon Bow", "atkPower": 20, "durability": 50 },
-        { "name": "Great Eagle Bow", "atkPower": 28, "durability": 60 },
+        { "name": "Great Eagle Bow (x3)", "atkPower": 84, "durability": 60 },
         { "name": "Golden Bow", "atkPower": 14, "durability": 60 },
         { "name": "Phrenic Bow", "atkPower": 10, "durability": 45 },
         { "name": "Ancient Bow", "atkPower": 44, "durability": 120 },
@@ -157,9 +157,9 @@
         { "name": "Lizal Bow", "atkPower": 14, "durability": 25 },
         { "name": "Strengthened Lizal Bow", "atkPower": 25, "durability": 35 },
         { "name": "Steel Lizal Bow", "atkPower": 36, "durability": 50 },
-        { "name": "Lynel Bow", "atkPower": 10, "durability": 30 },
-        { "name": "Mighty Lynel Bow", "atkPower": 20, "durability": 35 },
-        { "name": "Savage Lynel Bow", "atkPower": 32, "durability": 45 },
-        { "name": "Duplex Bow", "atkPower": 14, "durability": 18 }  
+        { "name": "Lynel Bow (x3)", "atkPower": 30, "durability": 30 },
+        { "name": "Mighty Lynel Bow (x3)", "atkPower": 60, "durability": 35 },
+        { "name": "Savage Lynel Bow (x3)", "atkPower": 96, "durability": 45 },
+        { "name": "Duplex Bow (x2)", "atkPower": 28, "durability": 18 }  
     ]
 }		 
