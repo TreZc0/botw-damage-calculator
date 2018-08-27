@@ -48,9 +48,10 @@ let specialValue = "none";
 
 		_assign() {
 			this.$.atkValue.innerHTML = "+ " + atkValue;
+			this.$.atkBonusValue.innerHTML = "+ " + this._enteredATKBonus + " damage";
 			this.$.durValue.innerHTML = "+ " + this._enteredExtraHits + " hits";
 			this.$.specialValue.innerHTML = specialValue;
-			this.modifierData = {"atkMod": atkValue, "durMod": this._enteredExtraHits, "special": specialValue};
+			this.modifierData = {"atkMod": atkValue, "atkBonus": this._enteredATKBonus, "durMod": this._enteredExtraHits, "special": specialValue};
 				
 		}
 

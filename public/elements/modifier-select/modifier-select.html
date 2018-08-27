@@ -55,10 +55,10 @@
 			iron-input {
 				color: white;
 			}
-			#attack, #durability, #special {
+			#attack, #attackBonus, #durability, #special {
 				margin-bottom: 5px;
 			}
-			#atk, #dur, #special {
+			#atk, #atkBonus, #dur, #special {
 				font-size: 24px;
 				font-weight: 500;
 				margin-top: 5px;
@@ -68,7 +68,7 @@
 			#switch {
 				margin-bottom: 10px;
 			}
-			#atkValue, #durValue, #specialValue {
+			#atkValue, #durValue, #atkBonusValue, #specialValue {
 				font-weight: 800;
 			}
 			paper-input {
@@ -94,8 +94,12 @@
 						<paper-item value="3">+3</paper-item>
 				</paper-listbox>
 		</paper-dropdown-menu>
-		<paper-input label="Durability Modifier" id="durability" 
-			placeholder="Durability Modifier: Extra Hits"
+		<paper-input label="Attack Weapon Bonus" id="attackBonus" 
+		placeholder="Attack Bonus: Extra Damage"
+		value="{{_enteredATKBonus}}">
+	</paper-input>
+		<paper-input label="Durability Weapon Bonus" id="durability" 
+			placeholder="Durability Bonus: Extra Hits"
 			value="{{_enteredExtraHits}}">
 		</paper-input>
 		<paper-dropdown-menu id="special" attr-or-property-name="name" label="Special Modifier" >
@@ -107,7 +111,8 @@
 				</paper-listbox>
 		</paper-dropdown-menu>
 		<div id="atk">Attack Modifier:&nbsp;<div id="atkValue"></div></div>
-		<div id="dur">Durability Modifier:&nbsp;<div id="durValue"></div></div>
+		<div id="atkBonus">Attack Weapon Bonus:&nbsp;<div id="atkBonusValue"></div></div>
+		<div id="dur">Durability Weapon Bonus:&nbsp;<div id="durValue"></div></div>
 		<div id="special">Special Modifier:&nbsp;<div id="specialValue"></div></div>
 
 		<paper-button id="switch" class="flex" on-tap="_assign" raised>

@@ -222,6 +222,7 @@
         function calc() {
             var atkModifier = 1;
             var durModifier = 0;
+            var bonusDamage = 0;
             var plusArrowDamage = 0;
             if (modifier.modifierData) {
                 if (modifier.modifierData.atkMod != 0) {
@@ -238,8 +239,11 @@
                     break;
                     }
                 }
-                if (modifier.modifierData.durMod != 0) {
+                if (modifier.modifierData.durMod != "") {
                     durModifier = parseInt(modifier.modifierData.durMod);
+                }
+                if (modifier.modifierData.atkBonus != "") {
+                    bonusDamage = parseInt(modifier.modifierData.atkBonus);
                 }
                 if (modifier.modifierData.special != "none") {
                     if ((weapon.weaponData.name.includes("Ancient")) || (weapon.weaponData.name.includes("Guardian"))) {
@@ -264,7 +268,7 @@
                     break;
                 }
             }
-            if (((Math.floor(weapon.weaponData.atk*atkModifier)+plusArrowDamage)*(weapon.weaponData.dur+durModifier)) > enemy.enemyData.health) {
+            if (((Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage)*(weapon.weaponData.dur+durModifier)) > enemy.enemyData.health) {
                 killCheck.innerHTML = "YES!";
                 canbeKilled = true;
             }
@@ -275,15 +279,15 @@
             
             if (canbeKilled) {
                 console.log(atkModifier);
-                killAmount.innerHTML = Math.ceil(enemy.enemyData.health / (Math.floor(weapon.weaponData.atk*atkModifier)+plusArrowDamage));
+                killAmount.innerHTML = Math.ceil(enemy.enemyData.health / (Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage));
             }
             else killAmount.innerHTML = "-";
             
             if (canbeKilled) {
-                dmgDealt.innerHTML = (Math.ceil(enemy.enemyData.health / (Math.floor(weapon.weaponData.atk*atkModifier))))*(Math.floor(weapon.weaponData.atk*atkModifier)+plusArrowDamage);
+                dmgDealt.innerHTML = (Math.ceil(enemy.enemyData.health / (Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier))))*(Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage);
             } else dmgDealt.innerHTML = weapon.weaponData.maxDmg;
             if (canbeKilled) {
-                remHits.innerHTML = (weapon.weaponData.dur+durModifier) - (Math.ceil(enemy.enemyData.health / (Math.floor(weapon.weaponData.atk*atkModifier)+plusArrowDamage)));
+                remHits.innerHTML = (weapon.weaponData.dur+durModifier) - (Math.ceil(enemy.enemyData.health / (Math.floor((weapon.weaponData.atk+bonusDamage)*atkModifier)+plusArrowDamage)));
             } else remHits.innerHTML = 0;
         }
     </script>
