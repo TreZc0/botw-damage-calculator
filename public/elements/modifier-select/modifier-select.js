@@ -1,8 +1,8 @@
 /* global SplitText */
 (function () {
 	'use strict';
-let atkValue = "";
-let durValue = "";
+let atkValue = 0;
+let specialValue = "none";
 	class modifierSelect extends Polymer.Element
 	{
 	    static get is()
@@ -22,9 +22,10 @@ let durValue = "";
 					observer: "_selectedATK",
 					notify: true
 				},
-				selectedDurMod: {
+
+				selectedSpecial: {
 					type: String,
-					observer: "_selectedDUR",
+					observer: "_selectedSpecial",
 					notify: true
 				},
 				modifierData: {
@@ -38,16 +39,18 @@ let durValue = "";
 			super.ready();            
 		}
 		_selectedATK(selected,previous) {
-			atkValue = "+ " + selected;
+			atkValue = selected;
 		}
-		_selectedDUR(selected,previous) {
-			durValue = "+ " + selected;
+
+		_selectedSpecial(selected,previous) {
+			specialValue = selected;
 		}
 
 		_assign() {
-			this.$.atkValue.innerHTML = atkValue;
-			this.$.durValue.innerHTML = durValue;
-			this.modifierData = {"atkMod": atkValue, "durMod": durValue };
+			this.$.atkValue.innerHTML = "+ " + atkValue;
+			this.$.durValue.innerHTML = "+ " + this._enteredExtraHits + " hits";
+			this.$.specialValue.innerHTML = specialValue;
+			this.modifierData = {"atkMod": atkValue, "durMod": this._enteredExtraHits, "special": specialValue};
 				
 		}
 

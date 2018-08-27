@@ -28,14 +28,14 @@
                 height: 60px;
             }
 			#wrapper {
-				width: 99vw;
+				width: 100vw;
 				@apply --layout-vertical;
 				@apply --layout-flex-none;
 
                 text-align: center;
 			}
 			#container {
-				padding: 15px 20px;
+				padding: 10px 15px;
 				box-sizing: border-box;
                 display: flex;
 				flex-shrink: 0;
@@ -50,8 +50,8 @@
 				border: 1px solid black;
 			}
 			.column {
-				width: 560px;
-				margin: 0 20px;
+				width: 400px;
+				margin: 0 15px;
 				@apply --layout-vertical;
 				@apply --layout-flex-none;
                 justify-content: space-around;
@@ -71,7 +71,6 @@
                 width: 100%;
                 display: flex;
                 align-items: center;
-                margin-bottom: 5px;
                 padding-left: 50px;
                 z-index: 10;
                 height: 7.5em;
@@ -80,9 +79,10 @@
             }
             #footer {
                 background-image: url(pattern.png);
-                margin: 0;
                 justify-content: center;
                 width: 100%;
+                position: absolute;
+                bottom: 0px;
                 display: block;
                 text-align: center;
                 z-index: 10;
@@ -195,7 +195,7 @@
                 <div>
                     <p id="killed">Can enemy be killed:&nbsp; <span id="killCheck"></span></p>
                     <p id="killedIn">Gets killed in&nbsp; <span id="killAmount">-</span>&nbsp; hits</p>
-                    <p id="damDealt">The weapon dealt&nbsp; <spans id="dmg">-</span>&nbsp;damage</p>
+                    <p id="damDealt">The weapon dealt&nbsp; <span id="dmg">-</span>&nbsp;damage</p>
                     <p id="remHits">The weapon has&nbsp; <span id="hits">-</span>&nbsp; hits left</p>
                 </div>
         </div>
@@ -209,6 +209,83 @@
             </div> 
         </div>
     </div>
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript">
+        var weapon = document.querySelector("#weapons");
+        var enemy =  document.querySelector("#enemies");
+        var modifier =  document.querySelector("#modifiers");
+        var killCheck = document.getElementById("killCheck");
+        var killAmount = document.getElementById("killAmount");
+        var dmgDealt = document.getElementById("dmg");
+        var remHits = document.getElementById("hits");
+        var canbeKilled = false;
+
+        function calc() {
+            var atkModifier = 1;
+            var durModifier = 0;
+            var plusArrowDamage = 0;
+            if (modifier.modifierData) {
+                if (modifier.modifierData.atkMod != 0) {
+                    console.log("modifiers defined")
+                    switch(modifier.modifierData.atkMod) {
+                    case "1":
+                        atkModifier = atkModifier + 0.2;
+                    break;
+                    case "2":
+                        atkModifier = atkModifier + 0.3;
+                    break;
+                    case "3":
+                        atkModifier = atkModifier + 0.5;
+                    break;
+                    }
+                }
+                if (modifier.modifierData.durMod != 0) {
+                    durModifier = parseInt(modifier.modifierData.durMod);
+                }
+                if (modifier.modifierData.special != "none") {
+                    if ((weapon.weaponData.name.includes("Ancient")) || (weapon.weaponData.name.includes("Guardian"))) {
+                        if (modifier.modifierData.special == "Proficiency")
+                            atkModifier = atkModifier + 0.8;
+                        else if (modifier.modifierData.special == "Gem")
+                            atkModifier = atkModifier + 0.2;
+                    } else if (modifier.modifierData.special == "Bone")
+                            atkModifier = atkModifier + 0.8;
+                }
+            }
+            if (weapon.weaponData.arrows != "Normal") {
+                switch(weapon.weaponData.arrows) {
+                    case "Fire":
+                        plusArrowDamage = 10;
+                    break;
+                    case "Ice":
+                        plusArrowDamage = 10;
+                    break;
+                    case "Shock": 
+                        plusArrowDamage = 20;
+                    break;
+                }
+            }
+            if (((Math.floor(weapon.weaponData.atk*atkModifier)+plusArrowDamage)*(weapon.weaponData.dur+durModifier)) > enemy.enemyData.health) {
+                killCheck.innerHTML = "YES!";
+                canbeKilled = true;
+            }
+            else {
+                killCheck.innerHTML = "NO!";
+                canbeKilled = false;
+            }
+            
+            if (canbeKilled) {
+                console.log(atkModifier);
+                killAmount.innerHTML = Math.ceil(enemy.enemyData.health / (Math.floor(weapon.weaponData.atk*atkModifier)+plusArrowDamage));
+            }
+            else killAmount.innerHTML = "-";
+            
+            if (canbeKilled) {
+                dmgDealt.innerHTML = (Math.ceil(enemy.enemyData.health / (Math.floor(weapon.weaponData.atk*atkModifier))))*(Math.floor(weapon.weaponData.atk*atkModifier)+plusArrowDamage);
+            } else dmgDealt.innerHTML = weapon.weaponData.maxDmg;
+            if (canbeKilled) {
+                remHits.innerHTML = (weapon.weaponData.dur+durModifier) - (Math.ceil(enemy.enemyData.health / (Math.floor(weapon.weaponData.atk*atkModifier)+plusArrowDamage)));
+            } else remHits.innerHTML = 0;
+        }
+    </script>
   </body>
 </html>

@@ -54,22 +54,32 @@
 			switch(selected) {
 				case "all":
 					this.weapons = allWeapons;
+					this.$.arrows.style.display = "initial";
+					this.$.arrow.style.display = "initial";
 				break;
 
 				case "onehanders":
 					this.weapons = jsonData.onehanders;
+					this.$.arrows.style.display = "none";
+					this.$.arrow.style.display = "none";
 				break;
 
 				case "twohanders":
 					this.weapons = jsonData.twohanders;
+					this.$.arrows.style.display = "none";
+					this.$.arrow.style.display = "none";
 				break;
 
 				case "spears":
 					this.weapons = jsonData.spears;
+					this.$.arrows.style.display = "none";
+					this.$.arrow.style.display = "none";
 				break;
 
 				case "bows":
 					this.weapons = jsonData.bows;
+					this.$.arrows.style.display = "initial";
+					this.$.arrow.style.display = "initial";
 				break;
 			}
 		  }
@@ -81,9 +91,17 @@
 				return false;
 			});
 			this.$.weaponValue.innerHTML = assignedWeapon.name;
-			this.weaponData = {"name": assignedWeapon.name, "atk": assignedWeapon.atkPower, "dur": assignedWeapon.durability, "maxDmg": assignedWeapon.atkPower * assignedWeapon.durability };
+			this.weaponData = {"name": assignedWeapon.name, "atk": assignedWeapon.atkPower, "dur": assignedWeapon.durability, "arrows": this.selectedArrows, "maxDmg": assignedWeapon.atkPower * assignedWeapon.durability };
 			this.$.apValue.innerHTML = assignedWeapon.atkPower;
 			this.$.durValue.innerHTML = assignedWeapon.durability;
+			if (!assignedWeapon.name.includes("Bow"))
+				this.$.arrow.style.display = "none";
+				
+			else {
+				this.$.arrow.style.display = "initial";
+				this.$.arrowValue.innerHTML = this.selectedArrows;
+			}
+
 			this.$.maxdmgValue.innerHTML = assignedWeapon.atkPower * assignedWeapon.durability;
 				
 		}

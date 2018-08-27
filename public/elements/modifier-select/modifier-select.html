@@ -25,7 +25,7 @@
 				text-align: center;
 				background-color: darkgrey;
 				color: white;
-				height: 550px;
+				height: 650px;
 			}
 
 			paper-button {
@@ -42,7 +42,7 @@
 				@apply --layout-center-center;
 			}
 			paper-dropdown-menu {
-				width: 450px;
+				width: 400px;
 				--paper-input-container-label: {
 					color: white;
 					text-align: center;
@@ -55,22 +55,35 @@
 			iron-input {
 				color: white;
 			}
-			#attack, #durability {
-				margin-bottom: 10px;
+			#attack, #durability, #special {
+				margin-bottom: 5px;
 			}
-			#atk, #dur {
+			#atk, #dur, #special {
 				font-size: 24px;
 				font-weight: 500;
 				margin-top: 5px;
-				margin-bottom: 30px;
+				margin-bottom: 8px;
 				text-align: center;
 			}
 			#switch {
 				margin-bottom: 10px;
 			}
-			#atkValue, #durValue {
+			#atkValue, #durValue, #specialValue {
 				font-weight: 800;
 			}
+			paper-input {
+				width: 400px;
+				--paper-input-container-color: white;
+				--paper-input-container-label: {
+					color: white;
+					text-align: center;
+					font-weight: bold;
+					};
+				--paper-input-container-input: {
+					color: white;
+					};
+
+			}; 
 		</style>
 
 		<paper-dropdown-menu id="attack" attr-or-property-name="name" label="Attack Modifier" >
@@ -81,16 +94,21 @@
 						<paper-item value="3">+3</paper-item>
 				</paper-listbox>
 		</paper-dropdown-menu>
-		<paper-dropdown-menu id="durability" attr-or-property-name="name" label="Durability Modifier" >
-				<paper-listbox id="durList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedDurMod}}">
-						<paper-item value="0">0</paper-item>
-						<paper-item value="1">+1</paper-item>
-						<paper-item value="2">+2</paper-item>
-						<paper-item value="3">+3</paper-item>
+		<paper-input label="Durability Modifier" id="durability" 
+			placeholder="Durability Modifier: Extra Hits"
+			value="{{_enteredExtraHits}}">
+		</paper-input>
+		<paper-dropdown-menu id="special" attr-or-property-name="name" label="Special Modifier" >
+				<paper-listbox id="specialList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedSpecial}}">
+						<paper-item value="none">None</paper-item>
+						<paper-item value="Proficiency">Ancient Proficiency</paper-item>
+						<paper-item value="Bone">Bone Attack Up</paper-item>
+						<paper-item value="Gem">Gem Headwear</paper-item>
 				</paper-listbox>
 		</paper-dropdown-menu>
 		<div id="atk">Attack Modifier:&nbsp;<div id="atkValue"></div></div>
 		<div id="dur">Durability Modifier:&nbsp;<div id="durValue"></div></div>
+		<div id="special">Special Modifier:&nbsp;<div id="specialValue"></div></div>
 
 		<paper-button id="switch" class="flex" on-tap="_assign" raised>
 				<div align=center>Set Modifiers</div>

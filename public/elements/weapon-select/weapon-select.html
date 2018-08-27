@@ -25,7 +25,7 @@
 				text-align: center;
 				background-color: darkgrey;
 				color: white;
-				height: 550px;
+				height: 650px;
 			}
 
 			paper-button {
@@ -42,7 +42,7 @@
 				@apply --layout-center-center;
 			}
 			paper-dropdown-menu {
-				width: 450px;
+				width: 400px;
 				--paper-input-container-label: {
 					color: white;
 					text-align: center;
@@ -55,15 +55,15 @@
 			iron-input {
 				color: white;
 			}
-			#weapon, #ap, #dur, #maxdmg {
+			#weapon, #ap, #dur, #maxdmg, #arrow {
 				font-size: 24px;
 				font-weight: 500;
 				margin-top: 5px;
-				margin-bottom: 10px;
+				margin-bottom: 5px;
 				text-align: center;
 			}
 			#weaponSelect {
-				margin-bottom: 20px;
+				margin-bottom: 10px;
 			}
 			#switch {
 				margin-bottom: 10px;
@@ -71,9 +71,8 @@
 			#weaponValue, #apValue, #durValue, #maxdmgValue {
 				font-weight: 800;
 			}
-			#filter {
-				width: 450px;
-				margin-bottom: 20px;
+			#filter, #arrows {
+				margin-bottom: 10px;
 			}
 			#message {
 				display: none;
@@ -97,10 +96,19 @@
 				</paper-listbox>
 			</paper-dropdown-menu>
 		</template>
+		<paper-dropdown-menu id="arrows" attr-or-property-name="name" label="Arrows Used" >
+				<paper-listbox id="arrowList" slot="dropdown-content" attr-for-selected="value" selected="{{selectedArrows}}">
+						<paper-item value="Normal">Normal</paper-item>
+						<paper-item value="Fire">Fire</paper-item>
+						<paper-item value="Ice">Ice</paper-item>
+						<paper-item value="Shock">Shock</paper-item>
+				</paper-listbox>
+		</paper-dropdown-menu>
 		<div id="weapon">Current Weapon:&nbsp;<div id="weaponValue"></div></div>
 		<div id="ap">Attack Power:&nbsp;<div id="apValue"></div></div>
 		<div id="dur">Durability:&nbsp;<div id="durValue"></div></div>
 		<div id="maxdmg">Max Damage:&nbsp;<div id="maxdmgValue"></div></div>
+		<div id="arrow">Arrows used:&nbsp;<div id="arrowValue"></div></div>
 
 
 			<paper-button id="switch" class="flex" on-tap="_assign" raised>
