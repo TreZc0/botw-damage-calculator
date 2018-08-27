@@ -1,14 +1,10 @@
 // Module dependencies
 
 var express    = require('express'),
-    bodyParser = require('body-parser'),
-    passport   = require('passport');
+    bodyParser = require('body-parser');
 var fs = require('fs');
 var fse = require('fs-extra');
-const config = require('./config');
-var searchResults = [];
-var heading = [];
-var specification = [];
+
 
 
 // Configuration
