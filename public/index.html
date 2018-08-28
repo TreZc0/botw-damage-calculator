@@ -142,7 +142,7 @@
                 margin-left: auto;
                 margin-right: auto;
                 width: 80%;
-                height: 270px;
+                height: 290px;
                 margin-top: 0px;
                 margin-bottom: 20px;
                 justify-content: space-around;
@@ -154,14 +154,14 @@
                 margin-top: 5px;
 				margin-bottom: 5px;
 				width: 30%;
-				height: 60px;
+				height: 40px;
 				background-color:lightgrey;
 				justify-content: space-around;
 				color: black;
                 text-transform: uppercase;
                 font-size: 15px;
             }
-            #killCheck, #killAmount, #dmg, #hits {
+            #killCheck, #hitDMG, #multivalue, #killAmount, #dmg, #hits {
                 font-weight: 800;
             }
         </style>
@@ -194,6 +194,8 @@
         <button onclick="calc()" id="calc">Calculate!</button>
                 <div>
                     <p id="killed">Can enemy be killed:&nbsp; <span id="killCheck"></span></p>
+                    <p id="multiplier">Combined Multiplier:&nbsp; <span id="multiValue"></span></p>
+                    <p id="baseDMG">Damage per Hit:&nbsp; <span id="hitDMG"></span></p>
                     <p id="killedIn">Gets killed in&nbsp; <span id="killAmount">-</span>&nbsp; hits</p>
                     <p id="damDealt">The weapon dealt&nbsp; <span id="dmg">-</span>&nbsp;damage</p>
                     <p id="remHits">The weapon has&nbsp; <span id="hits">-</span>&nbsp; hits left</p>
@@ -217,6 +219,8 @@
         var killAmount = document.getElementById("killAmount");
         var dmgDealt = document.getElementById("dmg");
         var remHits = document.getElementById("hits");
+        var hitDMG = document.getElementById("hitDMG");
+        var multiValue = document.getElementById("multiValue");
         var canbeKilled = false;
 
         function calc() {
@@ -230,13 +234,13 @@
                     /*console.log("modifiers defined")*/
                     switch(modifier.modifierData.atkMod) {
                     case "1":
-                        atkModifier = atkModifier + 0.2;
+                        atkModifier = atkModifier * 1.2;
                     break;
                     case "2":
-                        atkModifier = atkModifier + 0.3;
+                        atkModifier = atkModifier * 1.3;
                     break;
                     case "3":
-                        atkModifier = atkModifier + 0.5;
+                        atkModifier = atkModifier * 1.5;
                     break;
                     }
                 }
@@ -249,20 +253,20 @@
                 if (modifier.modifierData.special != "none") {
                     if ((weapon.weaponData.name.includes("Ancient")) || (weapon.weaponData.name.includes("Guardian"))) {
                         if (modifier.modifierData.special == "Proficiency")
-                            atkModifier = atkModifier + 0.8;
+                            atkModifier = atkModifier *1.8;
                         else if (modifier.modifierData.special == "Gem")
-                            atkModifier = atkModifier + 0.2;
+                            atkModifier = atkModifier  * 1.2;
                     } else if (modifier.modifierData.special == "Bone") {
                         if ((weapon.weaponData.name.includes("Dragonbone")) || (weapon.weaponData.name.includes("Spiked")) || (weapon.weaponData.name.includes("Bokoblin")) || (weapon.weaponData.name.includes("Lizalfos")) || (weapon.weaponData.name.includes("Moblin Arm")))
-                            atkModifier = atkModifier + 0.8;
+                            atkModifier = atkModifier * 1.8;
                     }
                 }
             }
             if ((weapon.weaponData.name.includes("Ancient")) || (weapon.weaponData.name.includes("Guardian"))) {
                 if ((enemy.enemyData.name.includes("Guardian")) || (enemy.enemyData.name.includes("Blight")) || (enemy.enemyData.name.includes("Calamity Ganon")) || (enemy.enemyData.name.includes("Sentry"))) {
                     if (["Ancient Bow", "Ancient Bladesaw", "Ancient Short Sword", "Ancient Spear"].includes(weapon.weaponData.name)) {
-                        atkModifier = atkModifier + 0.5;
-                    } else atkModifier = atkModifier + 0.3;
+                        atkModifier = atkModifier * 1.5;
+                    } else atkModifier = atkModifier * 1.3;
                 }
             }
             if (["Boulder Breaker", "Iron Sledgehammer", "Stone Smasher", "Cobble Crusher"].includes(weapon.weaponData.name)) {
@@ -278,9 +282,9 @@
                         return;
                     else if (weapon.weaponData.name.includes("x3")) {
                         var baseAtk = atkDamage / 3;
-                        atkDamage = baseAtk*5;
+                        atkDamage = baseAtk *5;
                     }
-                } else atkDamage = atkDamage*2;
+                } else atkDamage = atkDamage *2;
             }
 
             if (weapon.weaponData.arrows != "Normal") {
@@ -335,7 +339,8 @@
                 killCheck.innerHTML = "NO!";
                 canbeKilled = false;
             }
-            
+            hitDMG.innerHTML = Math.floor((atkDamage+bonusDamage)*atkModifier)+plusArrowDamage;
+            multiValue.innerHTML = atkModifier;
             if (canbeKilled) {
                 killAmount.innerHTML = Math.ceil(enemy.enemyData.health / (Math.floor((atkDamage+bonusDamage)*atkModifier)+plusArrowDamage));
             }

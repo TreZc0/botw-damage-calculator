@@ -47,7 +47,6 @@ let specialValue = "none";
 		}
 
 		_assign() {
-			this.$.atkValue.innerHTML = "+ " + atkValue;
 			this.$.atkBonusValue.innerHTML = "+ " + this._enteredATKBonus + " damage";
 			this.$.durValue.innerHTML = "+ " + this._enteredExtraHits + " hits";
 			this.$.specialValue.innerHTML = specialValue;
