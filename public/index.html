@@ -142,17 +142,25 @@
                 margin-left: auto;
                 margin-right: auto;
                 width: 80%;
-                height: 290px;
+                height: 350px;
                 margin-top: 0px;
                 margin-bottom: 20px;
-                justify-content: space-around;
+                justify-content: center;
                 color: white;
                 font-size: 24px;
                 line-height: 0.5em;
+                @apply --layout-vertical;
+            }
+            #values {
+                @apply --layout-horizontal;
+                margin-top: 5px;
+                justify-content: center;
             }
             #calc {
-                margin-top: 5px;
+                margin-top: 2px;
 				margin-bottom: 5px;
+                margin-left: auto;
+                margin-right: auto;
 				width: 30%;
 				height: 40px;
 				background-color:lightgrey;
@@ -161,8 +169,13 @@
                 text-transform: uppercase;
                 font-size: 15px;
             }
-            #killCheck, #hitDMG, #multivalue, #killAmount, #dmg, #hits {
+            #killCheck, #hitDMG, #multiValue, #killAmount, #dmg, #hits {
                 font-weight: 800;
+            }
+            #list {
+                @apply --layout-vertical;
+                width:50%;
+                line-height: 1em;
             }
         </style>
 
@@ -191,15 +204,19 @@
 
         </div>
         <div id="calculations" class="bordered">
-        <button onclick="calc()" id="calc">Calculate!</button>
-                <div>
-                    <p id="killed">Can enemy be killed:&nbsp; <span id="killCheck"></span></p>
-                    <p id="multiplier">Combined Multiplier:&nbsp; <span id="multiValue"></span></p>
-                    <p id="baseDMG">Damage per Hit:&nbsp; <span id="hitDMG"></span></p>
-                    <p id="killedIn">Gets killed in&nbsp; <span id="killAmount">-</span>&nbsp; hits</p>
-                    <p id="damDealt">The weapon dealt&nbsp; <span id="dmg">-</span>&nbsp;damage</p>
-                    <p id="remHits">The weapon has&nbsp; <span id="hits">-</span>&nbsp; hits left</p>
-                </div>
+            <button onclick="calc()" id="calc">Calculate!</button>
+            <div id="values">
+                    <div id="list">
+                        <p id="killed">Can enemy be killed:&nbsp; <span id="killCheck"></span></p>
+                        <p id="killedIn">Gets killed in&nbsp; <span id="killAmount">-</span>&nbsp; hits</p>
+                        <p id="damDealt">This weapon dealt&nbsp; <span id="dmg">-</span>&nbsp;damage</p>
+                        </div>
+                    <div id="list">
+                        <p id="multiplier">Combined Multiplier:&nbsp; <span id="multiValue"></span></p>
+                        <p id="baseDMG">Damage per Hit:&nbsp; <span id="hitDMG"></span></p>
+                        <p id="remHits">This weapon has&nbsp; <span id="hits">-</span>&nbsp; hits left</p>
+                    </div>
+            </div>
         </div>
         <div id="footer">
             <div id="leftbox">
