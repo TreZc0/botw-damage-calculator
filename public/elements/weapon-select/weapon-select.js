@@ -108,23 +108,26 @@
 			var stealth = false;
 			if (this.$.sa.checked)
 				stealth = true;
-
-			this.weaponData = {"name": assignedWeapon.name, "atk": attackPower, "dur": assignedWeapon.durability, "arrows": this.selectedArrows, "maxDmg": attackPower * assignedWeapon.durability, "headshot": headshot, "stealth": stealth };
-			this.$.apValue.innerHTML = attackPower;
-			this.$.durValue.innerHTML = assignedWeapon.durability;
 			if (assignedWeapon.name.includes("Bow")) {
 				this.$.arrow.style.display = "initial";
 				this.$.arrowValue.innerHTML = this.selectedArrows;
 				this.$.hs.style.display = "initial";
 				this.$.sa.style.display = "none";
+				stealth = false;
 			}	
 			else {
 				this.$.hs.style.display = "none";
 				this.$.sa.style.display = "initial";
 				this.$.arrow.style.display = "none";
+				this.selectedArrows = "Normal";
+				headshot = false;
 			}
+			this.weaponData = {"name": assignedWeapon.name, "atk": attackPower, "dur": assignedWeapon.durability, "arrows": this.selectedArrows, "maxDmg": attackPower * assignedWeapon.durability, "headshot": headshot, "stealth": stealth };
+			this.$.apValue.innerHTML = attackPower;
+			this.$.durValue.innerHTML = assignedWeapon.durability;
+				this.$.maxdmgValue.innerHTML = assignedWeapon.atkPower * assignedWeapon.durability;
 
-			this.$.maxdmgValue.innerHTML = assignedWeapon.atkPower * assignedWeapon.durability;
+
 				
 		}
 
